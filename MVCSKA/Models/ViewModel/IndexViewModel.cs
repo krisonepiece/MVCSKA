@@ -22,7 +22,9 @@ namespace MVCSKA.Models.ViewModel
 
 	public enum AccountingType
 	{
+		[Display(Name = "支出")]
 		Outlay,
+		[Display(Name = "收入")]
 		Income
 	}
 }

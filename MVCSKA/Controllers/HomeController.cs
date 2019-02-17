@@ -17,6 +17,9 @@ namespace MVCSKA.Controllers
 		[ChildActionOnly]
 		public ActionResult AccountingList()
 		{
+			var DataCount = 50;
+			var type = Enumerable.Range(1, 2).OrderBy(n => n * n * (new Random()).Next());
+
 			var record = new List<IndexViewModel>
 			{
 				new IndexViewModel() {Type = AccountingType.Outlay, Date = DateTime.Now, Amount = 1200, Remark = "First"},

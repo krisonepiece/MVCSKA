@@ -1,12 +1,16 @@
-﻿@model IEnumerable<MVCSKA.Models.ViewModel.IndexViewModel>
+﻿@using MVCSKA.Models.ViewModel
+@using MVCSKA.Helpers
+@model IEnumerable<MVCSKA.Models.ViewModel.IndexViewModel>
 
 @{
 	Layout = null;
 }
-
 <table class="table table-bordered table-hover">
 	<tr>
 		<th>#</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Type)
+		</th>
 		<th>
 			@Html.DisplayNameFor(model => model.Date)
 		</th>
@@ -22,6 +26,12 @@
 	{
 		<tr>
 			<td>@index</td>
+			<td>
+				@{
+					var value = EnumHelper<AccountingType>.GetDisplayValue(item.Type);
+				}
+				@Html.DisplayFor(modelItem => value)
+			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Date)
 			</td>
