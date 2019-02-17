@@ -18,13 +18,12 @@ namespace MVCSKA.Controllers
 		public ActionResult AccountingList()
 		{
 			var DataCount = 50;
-			var type = Enumerable.Range(1, 2).OrderBy(n => n * n * (new Random()).Next());
 
-			var record = new List<IndexViewModel>
+			var record = new List<IndexViewModel>();
+			for (var i = 0; i < DataCount; i++)
 			{
-				new IndexViewModel() {Type = AccountingType.Outlay, Date = DateTime.Now, Amount = 1200, Remark = "First"},
-				new IndexViewModel() {Type = AccountingType.Income, Date = DateTime.Now, Amount = 2000, Remark = "Second"}
-			};
+				record.Add(CreateRandomIndexViewModel());
+			}
 
 			return View(record);
 		}
@@ -41,6 +40,21 @@ namespace MVCSKA.Controllers
 			ViewBag.Message = "Your contact page.";
 
 			return View();
+		}
+
+		private IndexViewModel CreateRandomIndexViewModel()
+		{
+			var rnd = new Random(Guid.NewGuid().GetHashCode());
+			var value = Enum.GetValues(typeof(AccountingType));
+			var start = new DateTime(2019, 1, 1);
+			var range = (DateTime.Now - start).Days;
+			return new IndexViewModel
+			{
+				Type = (AccountingType)value.GetValue(rnd.Next(value.Length)),
+				Date = start.AddDays(rnd.Next(range)),
+				Amount = rnd.Next(100, 10000),
+				Remark = ""
+			};
 		}
 	}
 }
