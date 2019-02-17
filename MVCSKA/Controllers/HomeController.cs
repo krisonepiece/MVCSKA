@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVCSKA.Models.ViewModel;
 
 namespace MVCSKA.Controllers
 {
@@ -11,6 +12,18 @@ namespace MVCSKA.Controllers
 		public ActionResult Index()
 		{
 			return View();
+		}
+
+		[ChildActionOnly]
+		public ActionResult AccountingList()
+		{
+			var record = new List<IndexViewModel>
+			{
+				new IndexViewModel() {Type = AccountingType.Outlay, Date = DateTime.Now, Amount = 1200, Remark = "First"},
+				new IndexViewModel() {Type = AccountingType.Income, Date = DateTime.Now, Amount = 2000, Remark = "Second"}
+			};
+
+			return View(record);
 		}
 
 		public ActionResult About()
